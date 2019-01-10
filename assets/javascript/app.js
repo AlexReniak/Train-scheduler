@@ -50,9 +50,9 @@ $(document).ready(function() {
 
     timeDifferance = moment().diff(moment(firstArrivalFormatted), "minutes");
 
-    timeApart = timeDifferance % frequency;
+    timeAway = timeDifferance % frequency;
 
-    minUntilArrival = frequency - timeApart;
+    minUntilArrival = frequency - timeAway;
 
     nextTrainArrival = moment().add(minUntilArrival, "minutes")
 
@@ -69,5 +69,41 @@ $(document).ready(function() {
 
       //add train information to table
       $("tbody#train-info").append($tr)
+
+
+
   });
+  
 });
+
+// Updates minutes until arival every minute
+// intervalId = setInterval(updateTime, (60 * 1000));
+
+// function updateTime() {
+  
+//   database.ref("Train Information")
+
+//   timeDifferance = moment().diff(moment(firstArrivalFormatted), "minutes");
+
+//   timeAway = timeDifferance % frequency;
+
+//   minUntilArrival = frequency - timeAway;
+
+//   nextTrainArrival = moment().add(minUntilArrival, "minutes")
+
+//   console.log(nextTrainArrival)
+
+//   if (nextTrainArrival === 0) {
+
+//     nextTrainArrival.text("Arrived")
+
+//     intervalid = setInterval(departure, (30*1000))
+
+//   };
+// };
+
+// function departure() {
+
+//   nextTrainArrival.text("Departing soon")
+
+// }

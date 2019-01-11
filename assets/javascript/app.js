@@ -1,8 +1,3 @@
-/* $(document).on("load", function() {
-  $("#signin-modal").css("display", "block")
-  $("#main-info-panel").css("display", "none");
-});  */
-
 $(document).ready(function() {
 
   // Initialize Firebase
@@ -38,7 +33,7 @@ $(document).ready(function() {
     $("#first-arrival-input").val("");
     $("#frequency-input").val("");
 
-    //convert first train arrival into hours and minutes (1 year subtracted such that its before current time) 
+    //convert first train arrival into hours and minutes (1 year subtracted so that train arrives in "future") 
     trainData.firstArrival = moment(trainData.firstArrival, "HH:mm").subtract(1, "years")
   });
 
@@ -75,106 +70,54 @@ $(document).ready(function() {
       //add train information to table
       $("tbody#train-info").append($tr)
   });
-
-/*   var auth = firebase.auth()
-
-  function toggleSignIn() {
-    if (auth.currentUser) {
-      
-      auth.signOut();
-      
-    } else {
-      var email = $("#email-input")('email').value;
-      var password = $("#password-input")('password').value;
-      if (email.length < 4) {
-        alert('Please enter an email address.');
-        return;
-      }
-      if (password.length < 4) {
-        alert('Please enter a password.');
-        return;
-      }
-      
-  auth.signInWithEmailAndPassword(email, password).catch(function(error) {
-    
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    
-    if (errorCode === 'auth/wrong-password') {
-      alert('Wrong password.');
-    } else {
-      alert(errorMessage);
-    }
-    console.log(error);
-    //$('#QUICKSTART-SIGN-IN').disabled = false;
-  });
-      
-    }
-    //$("#QUICKSTART-SIGN-IN").disabled = true;
-  }
-
-  function signUp() {
-
-    var email = $("#email-input").val();
-    var password = $("#passwod-input").val();
-
-    if (email.length < 4) {
-      alert("Please enter a valid email address")
-      return;
-    }
-    
-    if (password.length <= 5) {
-      alert("Please enter a password between 6-12 characters")
-      return;
-    }
-  }
-
-  auth.createUserWithEmailandPassword(email, password).catch(function(error) {
-    var errorCode = error.errorCode
-    var errorMessage = error.message;
-
-    if (errorCode == "auth/weak-password") {
-      alert("Your password is too weak")
-    } else {
-      alert(errorMessage);
-    }
-
-  }) */
   
- /*  // Updates minutes until arival every minute
-  intervalId = setInterval(updateTime, (60 * 1000));
+  // Unfinished timer to update minutes until arrived
 
-  // updateTime function to update the minutes until arrival
-  function updateTime() {
+  // Create function to update time until arrival
+  // function updateTime () {
+  //   database.ref("Train Information").once("value", function(snapshot) {
+  //     snapshot.forEach(function(childSnapshot) {
+  //       // you now have access to each train one at a time
+  //       var firstArrival = childSnapshot.val().firstArrival;
+  //       var frequency = childSnapshot.val().frequency;
+
+  //       firstArrival = moment(firstArrival, "HH:mm").subtract(1, "years")
     
-    var firstArrival = database.ref("Train Information").getValue(firstArrival)
+  //       firstArrivalFormatted = moment(firstArrival, "X").format("MM/DD/YYYY");
+    
+  //       timeDifferance = moment().diff(moment(firstArrivalFormatted), "minutes");
+    
+  //       timeAway = timeDifferance % frequency;
+    
+  //       minUntilArrival = frequency - timeAway;
+  //       console.log(`minutes until arrival = ${minUntilArrival}`)
+    
+  //       nextTrainArrival = moment().add(minUntilArrival, "minutes")
+  //       console.log(`next train arrival = ${nextTrainArrival}`)
+        
+  //     // If statement when minutes until arrival = frequency, minutes changes to "arrived"
+  //   if (minUntilArrival === frequency) {
 
-    firstArrival = moment(firstArrival, "HH:mm").subtract(1, "years")
+  //     database.ref("Train Information").on("child_changed", function(childSnapshot) {
+      
+  //     minUntilArrival = "Arrived"
 
-    firstArrivalFormatted = moment(firstArrival, "X").format("MM/DD/YYYY");
+  //     });
 
-    timeDifferance = moment().diff(moment(firstArrivalFormatted), "minutes");
+  //     // Runs the departure function after 30 seconds, changing "arrived" to "departing soon"
+  //     intervalId = setInterval(departure, (30*1000));
 
-    timeAway = timeDifferance % frequency;
+  //       };
+  //     });
+  //   });
+  // };
+  
+  // // Updates minutes until arrival every minute
+  // intervalId = setInterval(updateTime, (60 * 1000));
 
-    minUntilArrival = frequency - timeAway;
-
-    nextTrainArrival = moment().add(minUntilArrival, "minutes")
-
-    console.log(nextTrainArrival)
-
-    // If statement when minutes until arrival = frequency, minutes changes to "arrived"
-    if (nextTrainArrival === frequency) {
-
-      nextTrainArrival.text("Arrived")
-
-      // runs departure after 30 seconds and changes "arrived" to "departing soon"
-      intervalid = setInterval(departure, (30*1000))
-    };
-  };
-
-  function departure() {
-
-    nextTrainArrival.text("Departing soon")
-  } */
+  // function departure() {
+  //   database.ref("Train Information").on("child_changed", function(childSnapshot){
+  //     minUntilArrival = "Departing soon";
+  //   });
+  // };
 });
